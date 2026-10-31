@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10253f">
+  <title>azentio.ai | Collective Learning</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="topline"><span>AZENTIO.AI</span><span>BUILD INTELLIGENCE. CREATE SHARED VALUE.</span></div>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="azentio.ai home"><span class="brand-mark">a</span><span>azentio<span class="brand-dot">.ai</span></span></a>
+    <nav><a class="nav-active" href="#workspace">Collective Learning</a><a href="#how">How it works</a></nav>
+    <div id="userBadge" class="user-badge hidden"></div>
+  </header>
+
+  <main>
+    <section id="loginView" class="hero-wrap">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> GOVERNED COLLECTIVE LEARNING</div>
+        <h1>Market insight.<br><em>Shared with care.</em></h1>
+        <p class="hero-text">A focused demonstration of how private observations can become reviewed, useful learning for the community.</p>
+        <div class="hero-tags"><span>Private by default</span><span>Reviewed before sharing</span><span>Auditable changes</span></div>
+      </div>
+      <div class="login-card">
+        <div class="card-kicker">DEMO WORKSPACE</div>
+        <h2>Sign in to continue</h2>
+        <p class="muted">Choose a synthetic demo account. All sample data is fictional.</p>
+        <form id="loginForm">
+          <label for="login">Demo account</label>
+          <select id="login" required>
+            <option value="client-a">Client · Northstar Finance</option>
+            <option value="client-a-teammate">Client member · Northstar Finance</option>
+            <option value="client-b">Client · BlueRiver Bank</option>
+            <option value="client-c">Client · Cedar Trust</option>
+            <option value="moderator">Learning moderator</option>
+            <option value="owner">Product owner</option>
+          </select>
+          <label for="password">Demo password</label>
+          <input id="password" type="password" value="demo123" autocomplete="current-password" required>
+          <button class="button button-primary button-wide" type="submit">Enter workspace <span>→</span></button>
+          <p id="loginError" class="error-message" aria-live="polite"></p>
+        </form>
+        <div class="demo-note"><span>i</span><span>Local demo login only. This is not production identity verification.</span></div>
+      </div>
+    </section>
+
+    <section id="workspace" class="workspace hidden">
+      <div class="workspace-heading">
+        <div><div class="eyebrow">COLLECTIVE LEARNING HUB</div><h1 id="welcomeTitle">Workspace</h1><p id="welcomeSub" class="muted"></p></div>
+        <button id="logoutButton" class="button button-outline">Sign out</button>
+      </div>
+      <div id="notice" class="notice hidden" role="status"></div>
+      <div id="notifications" class="notification-strip hidden"></div>
+
+      <div id="clientView" class="role-view hidden">
+        <div class="grid two-col">
+          <section class="panel">
+            <div class="panel-heading"><div><div class="card-kicker">YOUR CONTRIBUTION</div><h2>Share an observation</h2></div><span class="panel-icon">＋</span></div>
+            <p class="muted small">Your draft stays private. A proposed community contribution is reviewed before anyone else can see it.</p>
+            <form id="observationForm" class="form-grid">
+              <input type="hidden" name="editId" id="editId"><input type="hidden" name="versionOf" id="versionOf"><p id="editModeHint" class="notice info hidden span-2"></p>
+              <label class="span-2">Title<input name="title" maxlength="120" required placeholder="A concise observation"></label>
+              <label class="span-2">What are you observing?<textarea name="summary" maxlength="1200" rows="3" required placeholder="Describe the pattern without including customer-identifying details."></textarea></label>
+              <p class="small muted span-2">Privacy reminder: do not include customer identities, account numbers, transaction-level data, credentials or confidential terms. A basic pattern check examines the title and summary for email addresses, phone-like numbers and long digit strings; it can miss sensitive details and is not a privacy guarantee.</p>
+              <div id="privacyWarning" class="notice error hidden span-2" role="status"></div>
+              <label>Offering<input name="offering" maxlength="100" required value="Financial Analysis Intelligence"></label>
+              <label>Industry<input name="industry" maxlength="100" required placeholder="e.g. SME lending"></label>
+              <label>Region<input name="region" maxlength="100" required placeholder="e.g. South Asia"></label>
+              <label>Observation period<input name="period" maxlength="80" required placeholder="e.g. Q2 2026"></label>
+              <label>Topic<input name="topic" maxlength="100" required placeholder="e.g. cash flow"></label>
+              <label>Evidence type<input name="evidenceType" maxlength="100" required placeholder="e.g. market trend"></label>
+              <label>Confidence<select name="confidence"><option>Medium</option><option>High</option><option>Low</option></select></label>
+              <label class="consent-row span-2"><input id="consentProcessing" name="consentProcessing" type="checkbox" required><span>I permit this demo to store and process this observation to manage my contribution and its review.</span></label>
+              <label class="span-2">Sharing choice<select name="sharing" id="sharing"><option value="private">Private to me</option><option value="organisation">Within my organisation</option><option value="community">Propose for the approved learning community</option></select></label>
+              <label id="consentRow" class="consent-row span-2 hidden"><input id="consentPublish" name="consentPublish" type="checkbox"><span>I explicitly permit a moderator to review and publish a separate shared representation. This does not consent to model training.</span></label>
+              <div class="form-actions span-2"><button class="button button-outline" id="saveDraft" type="submit" name="intent" value="draft">Save private draft</button><button class="button button-primary" id="submitReview" type="submit" name="intent" value="submit">Submit for review</button><button class="button button-outline hidden" id="cancelEdit" type="button">Cancel edit</button></div>
+            </form>
+          </section>
+          <section class="panel">
+            <div class="panel-heading"><div><div class="card-kicker">MY ORGANISATION</div><h2>My observations</h2></div><button class="icon-button" id="refreshClient" title="Refresh">↻</button></div>
+            <div id="myObservations" class="list-stack"></div>
+          </section>
+        </div>
+        <section id="clientAdminPanel" class="panel hidden"><div class="panel-heading"><div><div class="card-kicker">NORTHSTAR ADMINISTRATION</div><h2>Organisation members and invitations</h2></div><button class="icon-button" id="refreshClientAdmin" title="Refresh members and invitations">↻</button></div><p class="muted small">Manage client roles and membership only within your active organisation. Invitations here are synthetic pending records: no email is sent and no account is created.</p><div class="grid two-col"><div><h3>Members</h3><div id="clientMembers" class="list-stack"></div></div><div><h3>Invite a client member</h3><form id="clientInviteForm" class="form-grid"><label class="span-2">Email<input name="email" type="email" maxlength="254" required placeholder="colleague@example.com"></label><label class="span-2">Approved role<select name="role"><option value="client_member">Client member</option><option value="client_admin">Client administrator</option></select></label><div class="form-actions span-2"><button class="button button-primary" type="submit">Create demo invitation</button></div></form><h3>Invitations</h3><div id="clientInvitations" class="list-stack"></div></div></div></section>
+        <section class="panel feed-panel"><div class="panel-heading"><div><div class="card-kicker">APPROVED AND SEARCHABLE</div><h2>Learning community</h2></div><button class="icon-button" id="refreshFeed" title="Refresh">↻</button></div><div class="filter-grid"><input id="feedSearch" placeholder="Search approved observations"><select id="filterOffering" aria-label="Filter by offering"><option value="">All offerings</option></select><select id="filterIndustry" aria-label="Filter by industry"><option value="">All industries</option></select><select id="filterRegion" aria-label="Filter by region"><option value="">All regions</option></select><select id="filterPeriod" aria-label="Filter by period"><option value="">All periods</option></select><select id="filterTopic" aria-label="Filter by topic"><option value="">All topics</option></select></div><p class="muted small">Only reviewed shared copies appear here</p><div id="sharedFeed" class="feed-grid"></div></section>
+        <section class="panel"><div class="panel-heading"><div><div class="card-kicker">EVIDENCE TO ACTION</div><h2>Emerging themes</h2></div><button class="icon-button" id="refreshThemes" title="Refresh themes">↻</button></div><p class="muted small">Follow each qualifying signal to its approved evidence and any client-visible improvement action. Themes require at least three distinct organisations and do not establish prevalence or causation.</p><div id="themeDashboard" class="feed-grid"></div></section>
+        <section class="panel"><div class="panel-heading"><div><div class="card-kicker">CLOSING THE LOOP</div><h2>Improvement updates</h2></div></div><div id="clientIdeas" class="feed-grid"></div></section>
+      </div>
+
+      <div id="moderatorView" class="role-view hidden">
+        <div class="grid two-col">
+          <section class="panel"><div class="panel-heading"><div><div class="card-kicker">REVIEW QUEUE</div><h2>Proposed contributions</h2></div><button class="icon-button" id="refreshQueue" title="Refresh">↻</button></div><div id="reviewQueue" class="list-stack"></div></section>
+          <section class="panel"><div class="panel-heading"><div><div class="card-kicker">COMMUNITY SAFETY</div><h2>Reports for moderator review</h2></div><button class="icon-button" id="refreshReports" title="Refresh">↻</button></div><div id="reportsList" class="list-stack"></div></section>
+        </div>
+        <section class="panel"><div class="panel-heading"><div><div class="card-kicker">PUBLISHED REPRESENTATIONS</div><h2>Shared feed</h2></div></div><div id="modFeed" class="feed-grid"></div></section>
+        <section class="panel"><div class="panel-heading"><div><div class="card-kicker">ACCOUNTABILITY</div><h2>Audit history</h2></div><button class="icon-button" id="refreshModAudit" title="Refresh audit history">↻</button></div><div id="modAudit" class="list-stack"></div></section>
+      </div>
+
+      <div id="ownerView" class="role-view hidden">
+        <div class="grid two-col">
+          <section class="panel"><div class="panel-heading"><div><div class="card-kicker">PRODUCT IMPROVEMENT</div><h2>Create an improvement idea</h2></div></div>
+            <form id="ideaForm" class="form-grid">
+              <label class="span-2">Title<input name="title" maxlength="120" required placeholder="Improvement idea"></label>
+              <label class="span-2">Problem statement<textarea name="problem" maxlength="1000" rows="3" required></textarea></label>
+              <label>Offering<input name="offering" value="Financial Analysis Intelligence" required></label>
+              <label>Proposed outcome<input name="outcome" maxlength="500" required></label>
+              <label>Priority<select name="priority"><option>Normal</option><option>High</option><option>Low</option></select></label>
+              <label>Supporting approved contribution<select name="evidenceId" id="evidenceSelect" required></select></label>
+              <label class="span-2">Audience<select name="audience"><option value="internal">Internal only</option><option value="clients">Share status with clients</option></select></label>
+              <div class="form-actions span-2"><button class="button button-primary" type="submit">Create idea</button></div>
+            </form>
+          </section>
+          <section class="panel"><div class="panel-heading"><div><div class="card-kicker">STATUS AND OWNERSHIP</div><h2>Improvement ideas</h2></div><button class="icon-button" id="refreshIdeas" title="Refresh">↻</button></div><div id="ownerIdeas" class="list-stack"></div></section>
+        </div>
+        <section class="panel"><div class="panel-heading"><div><div class="card-kicker">PERMITTED EVIDENCE</div><h2>Approved shared observations</h2></div></div><div id="ownerFeed" class="feed-grid"></div></section>
+        <section class="panel"><div class="panel-heading"><div><div class="card-kicker">SIGNAL TO ACTION</div><h2>Evidence-to-action trail</h2></div><button class="icon-button" id="refreshOwnerThemes" title="Refresh evidence-to-action trail">↻</button></div><p class="muted small">Trace every qualifying theme to its reviewed evidence and linked improvement ideas.</p><div id="ownerThemeDashboard" class="feed-grid"></div></section>
+        <section class="panel"><div class="panel-heading"><div><div class="card-kicker">ACCOUNTABILITY</div><h2>Audit history</h2></div><button class="icon-button" id="refreshOwnerAudit" title="Refresh audit history">↻</button></div><div id="ownerAudit" class="list-stack"></div></section>
+      </div>
+
+      <div id="how" class="how-strip"><div><b>01</b><span>Private draft</span></div><i>→</i><div><b>02</b><span>Moderator review</span></div><i>→</i><div><b>03</b><span>Approved copy</span></div><i>→</i><div><b>04</b><span>Learning & improvement</span></div></div>
+    </section>
+  </main>
+  <footer><span>© 2026 azentio.ai · Product information is indicative and subject to validation.</span><span>Synthetic demonstration data</span></footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>
