@@ -7,7 +7,6 @@ A local, free, synthetic-data prototype of the client observation → moderation
 Requires Node.js 20 or newer. No package install is needed.
 
 ```powershell
-cd D:\Projects\AzentioHackathon\Special_Challenge\special-challenge-app
 node server.mjs
 ```
 
