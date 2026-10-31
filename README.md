@@ -11,8 +11,6 @@ cd D:\Projects\AzentioHackathon\Special_Challenge\special-challenge-app
 node server.mjs
 ```
 
-Open <http://localhost:4173>.
-
 ## Demo accounts
 
 All accounts use the demo password `demo123`.
